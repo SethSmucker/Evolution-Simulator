@@ -8,7 +8,7 @@ class Cell {
     constructor(x, y, r) {
         this.model = Bodies.circle(x, y, r);
         this.tick = 1;
-        this.actionThreshold = 10000;
+        this.actionThreshold = Math.floor(Math.random() * 1000 + 100);
     }
 
     applyForce() {

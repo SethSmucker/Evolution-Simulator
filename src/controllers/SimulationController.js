@@ -54,7 +54,7 @@ class SimulationController {
         let allCreatures = [];
 
         //Create creature objects and add a reference of each to allCreatures
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 3; i++) {
             let c = new Creature();
             this.addBody(c.getModel());
             allCreatures.push(c);
