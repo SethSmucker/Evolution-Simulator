@@ -15,7 +15,8 @@ class Muscle {
         });
 
         this.muscle_type = dna.muscle_type;
-        this.startLength = this.model.length;
+        this.startLength = Math.max(this.model.length, 40);
+        this.model.length = Math.max(this.model.length, 40);
         this.speed = dna.speed;
     }
 
