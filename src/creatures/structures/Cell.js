@@ -16,8 +16,8 @@ class Cell {
             this.model,
             Matter.Vector.create(this.model.x, this.model.y),
             Matter.Vector.create(
-                Math.random() * 0.1 - 0.05,
-                Math.random() * 0.1 - 0.05
+                Math.random() * 0.01,
+                Math.random() * 0.01 - 0.05
             )
         );
     }
@@ -32,14 +32,6 @@ class Cell {
 
     act() {
         console.log("Cell Act!");
-        Matter.Body.applyForce(
-            this.model,
-            Matter.Vector.create(this.model.x, this.model.y),
-            Matter.Vector.create(
-                Math.random() * 0.05,
-                Math.random() * 0.1 - 0.01
-            )
-        );
     }
 
     getModel() {

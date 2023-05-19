@@ -1,17 +1,21 @@
 import { Composite, Bodies } from "matter-js";
-import Cell from "./Cell";
-import Muscle from "./Muscle";
+import Cell from "./structures/Cell";
+import Muscle from "./structures/Muscle";
 
 class Creature {
     model; // Does the creature really need this? It's a composite which is good but it might be unnecessary. Could be useful to get all parts at once
     cellList;
     muscleList;
 
-    constructor() {
+    dna;
+
+    constructor(dna) {
+        this.dna = dna;
+
         this.cellList = [];
-        this.cellList.push(new Cell(100, 200, 20));
+        this.cellList.push(new Cell(100, 200, 10));
         this.cellList.push(new Cell(200, 200, 10));
-        this.cellList.push(new Cell(300, 200, 50));
+        this.cellList.push(new Cell(300, 200, 10));
 
         this.muscleList = [];
         this.muscleList.push(new Muscle(this.cellList[1], this.cellList[2]));
