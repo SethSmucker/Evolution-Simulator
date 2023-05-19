@@ -1,5 +1,6 @@
 import Cell from "../creatures/structures/Cell";
 import Creature from "../creatures/Creature";
+import { getRandomSafeXY } from "../creatures/CreatureUtil";
 
 class SimulationController {
     engine;
@@ -55,7 +56,9 @@ class SimulationController {
 
         //Create creature objects and add a reference of each to allCreatures
         for (let i = 0; i < 10; i++) {
-            let c = new Creature();
+            let coords = getRandomSafeXY();
+
+            let c = new Creature(coords["x"], coords["y"]);
             this.addBody(c.getModel());
             allCreatures.push(c);
         }
@@ -81,19 +84,7 @@ class SimulationController {
 
     spawnCell(x, y, r) {
         let newCell = new Cell(x, y, r);
-        newCell.applyForce();
         this.addBody(newCell.getModel());
-    }
-
-    //Test Functions
-    genCircles(n) {
-        for (let i = 0; i < n; i++) {
-            this.spawnCell(
-                100 + Math.random() * 100,
-                100 + Math.random() * 100,
-                10
-            );
-        }
     }
 }
 

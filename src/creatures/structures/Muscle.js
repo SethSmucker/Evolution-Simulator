@@ -1,39 +1,40 @@
+import { MUSCLE_TYPE_METADATA } from "../CreatureUtil";
+
 class Muscle {
     model;
-    tick;
-    actionThreshold;
+    tick = 1;
+    speed;
     startLength;
+    muscle_type;
 
-    constructor(cellA, cellB) {
+    constructor(cellA, cellB, dna) {
         this.model = Matter.Constraint.create({
             bodyA: cellA.getModel(),
             bodyB: cellB.getModel(),
+            render: MUSCLE_TYPE_METADATA[dna.muscle_type]["style"],
         });
 
-        this.model.damping = 0.2;
+        this.muscle_type = dna.muscle_type;
         this.startLength = this.model.length;
-
-        this.tick = 1;
-        this.actionThreshold = Math.floor(Math.random() * 10 + 100);
+        this.speed = dna.speed;
     }
 
     update() {
-        this.locomote();
-        if (this.tick % this.actionThreshold == 0) {
-            this.act();
+        if (this.muscle_type == "Moving") {
+            this.actionMoving();
+        } else {
+            this.actionStatic();
         }
 
         this.tick++;
     }
 
-    act() {
-        console.log("Muscle Act!");
-    }
+    actionStatic() {}
 
-    locomote() {
+    actionMoving() {
         this.model.length =
             this.startLength -
-            (Math.sin(this.tick / 10) * this.startLength) / 2;
+            (Math.sin(this.tick * (this.speed / 1000)) * this.startLength) / 2;
     }
 
     getModel() {
