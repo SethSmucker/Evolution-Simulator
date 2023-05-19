@@ -3,19 +3,18 @@ class Muscle {
     tick;
     actionThreshold;
 
-    constructo(cellA, cellB) {
-        this.model = this.constraintList.push(
-            Matter.Constraint.create({
-                bodyA: cellA.getModel(),
-                bodyB: cellB.getModel(),
-            })
-        );
+    constructor(cellA, cellB) {
+        this.model = Matter.Constraint.create({
+            bodyA: cellA.getModel(),
+            bodyB: cellB.getModel(),
+        });
+
         this.tick = 1;
-        this.actionThreshold = 50;
+        this.actionThreshold = 5000;
     }
 
     update() {
-        if (this.tick % this.actionThreshold) {
+        if (this.tick % this.actionThreshold == 0) {
             this.act();
         }
 

@@ -1,10 +1,11 @@
 import { Composite, Bodies } from "matter-js";
 import Cell from "./Cell";
+import Muscle from "./Muscle";
 
 class Creature {
-    model;
+    model; // Does the creature really need this? It's a composite which is good but it might be unnecessary. Could be useful to get all parts at once
     cellList;
-    constraintList;
+    muscleList;
 
     constructor() {
         this.cellList = [];
@@ -13,32 +14,35 @@ class Creature {
         this.cellList.push(new Cell(300, 200, 50));
 
         this.muscleList = [];
-        this.muscleList.push(
-            Matter.Constraint.create({
-                bodyA: this.cellList[1].getModel(),
-                bodyB: this.cellList[2].getModel(),
-            })
-        );
+        this.muscleList.push(new Muscle(this.cellList[1], this.cellList[2]));
+        this.muscleList.push(new Muscle(this.cellList[0], this.cellList[2]));
 
-        x.applyForce();
-        y.applyForce();
-    }
+        let allBodies = [];
+        let allConstraints = [];
+        this.cellList.forEach((c) => {
+            allBodies.push(c.getModel());
+        });
+        this.muscleList.forEach((m) => {
+            allConstraints.push(m.getModel());
+        });
 
-    getModel() {
-        let bod,
-            con = [];
-        this.cellList.forEach((c) => bod.push(c.getModel()));
-
-        return Composite.create({
-            bodies: bod,
-            constraints: this.constraintList,
+        this.model = Composite.create({
+            bodies: allBodies,
+            constraints: allConstraints,
         });
     }
 
+    getModel() {
+        return this.model;
+    }
+
     update() {
-        console.log(this.model);
-        this.model.allBodies.forEach((c) => {
-            c.applyForce();
+        //update all creatures and cells
+        this.cellList.forEach((c) => {
+            c.update();
+        });
+        this.muscleList.forEach((m) => {
+            m.update();
         });
     }
 }

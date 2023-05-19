@@ -8,7 +8,7 @@ class Cell {
     constructor(x, y, r) {
         this.model = Bodies.circle(x, y, r);
         this.tick = 1;
-        this.actionThreshold = 100;
+        this.actionThreshold = 10000;
     }
 
     applyForce() {
@@ -23,7 +23,7 @@ class Cell {
     }
 
     update() {
-        if (this.tick % this.actionThreshold) {
+        if (this.tick % this.actionThreshold == 0) {
             this.act();
         }
 
