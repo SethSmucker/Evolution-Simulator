@@ -9,7 +9,7 @@ class Creature {
 
     constructor() {
         this.cellList = [];
-        this.cellList.push(new Cell(100, 200, 20));
+        this.cellList.push(new Cell(100, 200, 20)); //blah
         this.cellList.push(new Cell(200, 200, 10));
         this.cellList.push(new Cell(300, 200, 50));
 
